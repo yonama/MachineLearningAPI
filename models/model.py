@@ -5,9 +5,31 @@ import glob
 import os.path
 import codecs
 import re
+from actor import actor
+from filters.model_filter import model_filter as filter
 
-class model(object):
-    __metaclass__ = ABCMeta
+class model(actor):
+    def setup(self):
+        self.filter = filter(self)
+
+    @abstractmethod
+    def save_befour_action(self):
+        raise NotImplementedError()
+    @abstractmethod
+    def save_after_action(self):
+        raise NotImplementedError()
+    @abstractmethod
+    def save_around_action(self):
+        raise NotImplementedError()
+    @abstractmethod
+    def find_befour_action(self):
+        raise NotImplementedError()
+    @abstractmethod
+    def find_after_action(self):
+        raise NotImplementedError()
+    @abstractmethod
+    def find_around_action(self):
+        raise NotImplementedError()
 
     def set_data(self, id, data=None):
         self.__id = str(id)
