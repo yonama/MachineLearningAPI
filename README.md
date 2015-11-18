@@ -12,7 +12,7 @@ $clone https://github.com/hobbee/MachineLearningAPI.git
 $python3 index.py
 
 ##use
-post to `http://<domain>/api/auto_tag` with article data.  
+post to `http://<domain>/api/auto_tag` with __article data__.  
 you will get tags list cleated automatic soon.
 ###article data format example
 ```
