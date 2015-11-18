@@ -5,14 +5,14 @@ this project is powerd by python3.
 not working python2.x versions.
 
 ##install
-$pip3 install cherrypy
+$pip3 install cherrypy  
 $clone https://github.com/hobbee/MachineLearningAPI.git
 
 ##run
 $python3 index.py
 
 ##use
-post to http://<domain>/api/auto_tag with article data.
+post to `http://<domain>/api/auto_tag` with article data.  
 you will get tags list cleated automatic soon.
 ###article data format example
 ```
