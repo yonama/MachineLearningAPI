@@ -17,7 +17,7 @@ class autotagcompo(component):
     def setup(self):
         self.max_df = 100
         self.min_df = 5
-        self.min_tfidf = 0.10
+        self.min_tfidf = 0.13
         self.max_features = 10000
         self.articles = articles()
 
@@ -42,8 +42,6 @@ class autotagcompo(component):
             )
         X = vectorizer.fit_transform(texts)
         terms = vectorizer.get_feature_names()
-        tags_list = []
         x = X.toarray()
         tfidfs = x[-1]
-        tags_list.append([term for term in terms if tfidfs[terms.index(term)] > self.min_tfidf])
-        return tags_list
+        return [term for term in terms if tfidfs[terms.index(term)] > self.min_tfidf]
