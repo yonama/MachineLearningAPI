@@ -23,6 +23,8 @@ class automatic_tag(controller):
         result = self.tag_compo.make_tags_with_new_text(article_noun)
         return json.dumps(result, ensure_ascii=False)
 
+#現状はhobbeeの記事数が少ないために学習にhobbeeの記事を用いていない
+'''
     def PUT(self, article_json):
         article_dic = json.loads(article_json)
         return json.dumps(article_dic, ensure_ascii=False)
@@ -30,3 +32,4 @@ class automatic_tag(controller):
     def DELETE(self, article_id):
         article_dic = json.loads(article_json)
         return json.dumps(article_dic, ensure_ascii=False)
+'''

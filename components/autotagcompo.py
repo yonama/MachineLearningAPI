@@ -23,7 +23,7 @@ class autotagcompo(component):
 
     def __tokenize(self, text):
         """ MeCab で分かち書きした結果をトークンとして返す """
-        wakati = MeCab.Tagger("-O wakati")
+        wakati = MeCab.Tagger("-O wakati -d ./assets/mecab-ipadic-neologd/dic")
         return wakati.parse(text)
 
     def __split(self, text):

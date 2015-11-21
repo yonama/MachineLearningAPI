@@ -8,7 +8,7 @@ from component import component
 
 class nominalization(component):
     def setup(self):
-        self.mecab = MeCab.Tagger('mecabrc')
+        self.mecab = MeCab.Tagger('mecabrc -d ./assets/mecab-ipadic-neologd/dic')
         self.symbol = re.compile("[!-/:-@[-`{-~<>#a-zA-Z0-9]")
 
     def __get_nouns(self, text):
