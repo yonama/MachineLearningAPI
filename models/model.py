@@ -14,12 +14,14 @@ from sqlalchemy.orm import sessionmaker
 from actor import actor
 from filters.model_filter import model_filter as filter
 
-Base = declarative_base()
 config = configparser.ConfigParser()
 config.read('models/bootstrap.ini')
 
+Base = declarative_base()
+Engine = create_engine("mysql+pymysql://%s:%s@%s:%s/%s?charset=utf8&use_unicode=1" % (config['DataBase']['user'],config['DataBase']['password'],config['DataBase']['host'],config['DataBase']['port'],config['DataBase']['database']) , echo=True)
+
 class model(actor):
-    session = sessionmaker(bind=create_engine("mysql+pymysql://%s:%s@%s:%s/%s?charset=utf8&use_unicode=1" % (config['DataBase']['user'],config['DataBase']['password'],config['DataBase']['host'],config['DataBase']['port'],config['DataBase']['database']) , echo=True))
+    session = sessionmaker(bind=Engine)()
 
     def setup(self):
         self.filter = filter(self)
@@ -45,22 +47,25 @@ class model(actor):
 
     @classmethod
     def commit(cls):
-        cls.sesion.commit()
+        cls.session.commit()
 
     @classmethod
     def rollback(cls):
-        cls.sesion.rollback()
+        cls.session.rollback()
 
     @classmethod
     def add_all(cls, array):
         cls.session.add_all(array)
 
     @staticmethod
-    def _get_date():
+    def get_date():
         return datetime.datetime.now()
 
-    def query(self, *args):
-        self.session.query(*args)
+    '''
+    @classmethod
+    def query(cls, *args):
+        cls.session.query(*args)
+    '''
 
     def save(self):
         self.session.add(self)

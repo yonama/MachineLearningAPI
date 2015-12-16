@@ -32,7 +32,7 @@ class autotagcompo(component):
         return text.split()
 
     def make_tags_with_new_text(self, text):
-        texts = [item[1] for item in model.query(articles).all()]
+        texts = [item.text for item in model.session.query(articles).all()]
         texts.append(text)
         vectorizer = TfidfVectorizer(
             max_df=self.max_df,

@@ -1,3 +1,4 @@
+import datetime
 from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, Table
 from sqlalchemy.orm import relation, backref
 
@@ -11,8 +12,8 @@ class articles(Model.Base, model):
 
     id = Column(Integer, primary_key=True)
     text = Column(Text)
-    created = Column(DateTime, default=model._get_date)
-    updated = updated_at = Column(DateTime, onupdate=model._get_date)
+    created = Column(DateTime, default=datetime.datetime.utcnow)
+    updated = Column(DateTime, onupdate=datetime.datetime.utcnow)
 
     def __init__(self, text):
         super(articles, self).__init__()
