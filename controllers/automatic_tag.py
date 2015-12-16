@@ -11,7 +11,6 @@ from nominalization import nominalization
 class automatic_tag(controller):
     def setup(self):
         self.POST = self.filter.befour_filter()(self.POST)
-        self.articles = articles()
         self.tag_compo = autotagcompo()
         self.noun_compo = nominalization()
 

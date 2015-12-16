@@ -5,10 +5,22 @@ import glob
 import os.path
 import codecs
 import re
+import configparser
+
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
 from actor import actor
 from filters.model_filter import model_filter as filter
 
+Base = declarative_base()
+config = configparser.ConfigParser()
+config.read('models/bootstrap.ini')
+
 class model(actor):
+    session = sessionmaker(bind=create_engine("mysql+pymysql://%s:%s@%s:%s/%s?charset=utf8&use_unicode=1" % (config['DataBase']['user'],config['DataBase']['password'],config['DataBase']['host'],config['DataBase']['port'],config['DataBase']['database']) , echo=True))
+
     def setup(self):
         self.filter = filter(self)
 
@@ -31,35 +43,25 @@ class model(actor):
     def find_around_action(self):
         raise NotImplementedError()
 
-    def set_data(self, id, data=None):
-        self.__id = str(id)
-        self.__data = data
+    @classmethod
+    def commit(cls):
+        cls.sesion.commit()
 
-    def find_all(self):
-        for file in glob.glob('./models/resources/' + self.__class__.__name__ + '/*'):
-            id = re.compile("[0-9]+").search(file).group(0)
-            allLines = open(file, 'r', encoding='utf-8').read()
-            self.set_data(id, allLines)
-            yield (id, allLines)
+    @classmethod
+    def rollback(cls):
+        cls.sesion.rollback()
 
-    def find(self, id):
-        file = './models/resources/' + self.__class__.__name__ + '/' + str(id)
-        print(file)
-        if os.path.isfile(file):
-            allLines = open(file, 'r', encoding='utf-8').read()
-            self.set_data(id, allLines)
-            return (id, allLines)
-        else:
-            return (id, None)
+    @classmethod
+    def add_all(cls, array):
+        cls.session.add_all(array)
 
-    #data -> value
-    def save(self, data):
-        file = 'resources/' + self.__class__.__name__ + '/' + str(self.__id)
-        f = codecs.open(file, 'w', 'utf-8')
-        f.write('%s' % data)
+    @staticmethod
+    def _get_date():
+        return datetime.datetime.now()
 
-    #data -> [(id, value)]
-    #def save(self, List data):
-    #    for datum in data:
-    #        self.set_data(datum[0])
-    #        self.save(datum[1])
+    def query(self, *args):
+        self.session.query(*args)
+
+    def save(self):
+        self.session.add(self)
+        self.commit()

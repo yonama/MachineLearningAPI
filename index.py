@@ -4,6 +4,22 @@ import cherrypy
 import json
 from controllers.automatic_tag import automatic_tag as auto_tag
 
+import glob
+import os.path
+import codecs
+import re
+
+def find_all():
+    for file in glob.glob('./models/resources/articles/*'):
+        id = re.compile("[0-9]+").search(file).group(0)
+        allLines = open(file, 'r', encoding='utf-8').read()
+        yield (id, allLines)
+
+import sys
+sys.path.append("./models/")
+from model import model
+from articles import articles
+
 if __name__ == '__main__':
     cherrypy.config.update({'server.socket_host': '0.0.0.0'
                        })
@@ -13,5 +29,9 @@ if __name__ == '__main__':
             {'request.dispatch': cherrypy.dispatch.MethodDispatcher()}
         }
     )
+    for item in find_all():
+        article = articles(item[1])
+        article.save()
+
     cherrypy.engine.start()
     cherrypy.engine.block()

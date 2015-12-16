@@ -4,9 +4,12 @@ import codecs
 import re
 import numpy as np
 import sys
+
 sys.path.append("./components/")
 from component import component
+
 sys.path.append("./models/")
+from model import model
 from articles import articles
 
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -19,7 +22,6 @@ class autotagcompo(component):
         self.min_df = 5
         self.min_tfidf = 0.13
         self.max_features = 10000
-        self.articles = articles()
 
     def __tokenize(self, text):
         """ MeCab で分かち書きした結果をトークンとして返す """
@@ -30,7 +32,7 @@ class autotagcompo(component):
         return text.split()
 
     def make_tags_with_new_text(self, text):
-        texts = [item[1] for item in self.articles.find_all()]
+        texts = [item[1] for item in model.query(articles).all()]
         texts.append(text)
         vectorizer = TfidfVectorizer(
             max_df=self.max_df,
