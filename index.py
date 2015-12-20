@@ -3,6 +3,7 @@
 import cherrypy
 import json
 from controllers.automatic_tag import automatic_tag as auto_tag
+from controllers.association import association as association
 
 import glob
 import os.path
@@ -28,6 +29,12 @@ if __name__ == '__main__':
                        })
     cherrypy.tree.mount(
         auto_tag(), '/api/auto_tag',
+        {'/':
+            {'request.dispatch': cherrypy.dispatch.MethodDispatcher()}
+        }
+    )
+    cherrypy.tree.mount(
+        association(), '/api/association',
         {'/':
             {'request.dispatch': cherrypy.dispatch.MethodDispatcher()}
         }
