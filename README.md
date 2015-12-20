@@ -12,9 +12,10 @@ $clone https://github.com/hobbee/MachineLearningAPI.git
 $python3 index.py
 
 ##use
+###find keyword
 post to `http://<domain>:8080/api/auto_tag` with __article data__.  
 you will get tags list cleated automatic soon.
-###send data format example
+####send data format example
 ```
 var settings = {  
   "async": true,
@@ -35,7 +36,38 @@ $.ajax(settings).done(function (response) {
 });  
 ```
 
-###receive data format example
+####receive data format example
 ```
 ["クッション", "ショット", "タップ", "テーブル", "ブリッジ", "ボール", "ポケット", "丸み", "木材", "樹脂", "玉", "穴", "道具"]
+```
+
+###find asosiation rule
+post to `http://<domain>:8080/api/asosiation` with __depth__ and __transaction list__.  
+you will get asosiation rule list.
+
+####send data format example
+```
+{
+  depth:2,
+  transaction_list:[
+    [123, 234, 52, 123],
+    [123, 532, 52, 122, 767],
+    ...
+  ]
+}
+```
+
+####receive data format example
+```
+[
+  [
+    [
+      123,
+      234
+    ],
+    52,
+    1.066666666666667
+  ],
+  ...
+]
 ```
