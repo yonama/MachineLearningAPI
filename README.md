@@ -42,17 +42,15 @@ $.ajax(settings).done(function (response) {
 ```
 
 ###find asosiation rule
-post to `http://<domain>:8080/api/asosiation` with __depth__ and __transaction list__.  
+post to `http://<domain>:8080/api/asosiation` with __depth__ and __transaction__.  
 you will get asosiation rule list.
 
 ####send data format example
 ```
-{
-  depth:2,
-  transaction_list:[
-    [123, 234, 52, 123],
-    [123, 532, 52, 122, 767],
-    ...
+"data": {
+  depth:3,
+  transaction_list[
+    [123, 234, 52, 123]
   ]
 }
 ```
@@ -61,13 +59,23 @@ you will get asosiation rule list.
 ```
 [
   [
-    [
-      123,
-      234
-    ],
-    52,
-    1.066666666666667
+    52, #article_id
+    1.066666666666667 #lift_value
   ],
   ...
 ]
+```
+
+###send transaction list
+post to `http://<domain>:8080/api/transaction` with __transaction list__.
+
+####send data format example
+```
+"data": {
+  transaction_list:[
+    [123, 234, 52, 123],
+    [123, 532, 52, 122, 767],
+    ...
+  ]
+}
 ```
