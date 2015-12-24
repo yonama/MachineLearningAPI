@@ -47,17 +47,38 @@ you will get asosiation rule list.
 
 ####send data format example
 ```
-"data": {
-  "trans_list" : [123, 234, 52, 123]
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "http://<domain>:8080/api/association",
+  "method": "POST",
+  "headers": {
+    "content-type": "application/json",
+    "cache-control": "no-cache"
+  },
+  "processData": false,
+  "data": "[123]"
 }
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
 ```
 
 ####receive data format example
 ```
 [
   [
-    52, #article_id
-    1.066666666666667 #lift_value
+    234,
+    1.28
+  ],
+  [
+    52,
+    1.5999999999999999
+  ],
+  [
+    767,
+    1.2
   ],
   ...
 ]
