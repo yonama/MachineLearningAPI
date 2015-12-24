@@ -50,50 +50,58 @@ you will get asosiation rule list.
 var settings = {
   "async": true,
   "crossDomain": true,
-  "url": "http://<domain>:8080/api/association",
-  "method": "POST",
+  "url": "http://<domain>:8080/api/association?trans_json=%5B1%5D",
+  "method": "GET",
   "headers": {
     "content-type": "application/json",
-    "cache-control": "no-cache"
-  },
-  "processData": false,
-  "data": "[123]"
+    "cache-control": "no-cache",
+    "postman-token": "0fd0c14a-4e25-e713-91a9-0c3084b3fa44"
+  }
 }
-
-$.ajax(settings).done(function (response) {
-  console.log(response);
-});
 ```
 
 ####receive data format example
 ```
 [
   [
-    234,
+    2,
     1.28
   ],
   [
-    52,
-    1.5999999999999999
+    3,
+    1.0666666666666667
   ],
   [
-    767,
+    4,
     1.2
   ],
-  ...
+  [
+    5,
+    1.0666666666666667
+  ]
 ]
 ```
 
 ###send transaction list
-post to `http://<domain>:8080/api/transaction` with __trans_list__.
+post to `http://<domain>:8080/api/association` with __trans_list__ and __user_id__.
 
 ####send data format example
 ```
-"data": {
-  "trans_list" : [
-    [123, 234, 52, 123],
-    [123, 532, 52, 122, 767],
-    ...
-  ]
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "http://<domain>:8080/api/association",
+  "method": "POST",
+  "headers": {
+    "content-type": "application/json",
+    "cache-control": "no-cache",
+    "postman-token": "81169823-148d-8c71-4435-f3695fe1fba5"
+  },
+  "processData": false,
+  "data": "{\n    \"list\" : [4],\n    \"user_id\" : 111\n}"
 }
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
 ```

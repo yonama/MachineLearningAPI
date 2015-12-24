@@ -17,14 +17,15 @@ def find_all():
         allLines = open(file, 'r', encoding='utf-8').read()
         yield (id, allLines)
 
+'''
 import sys
 sys.path.append("./models/")
 import model as Model
 from model import model
-from articles import articles
-'''
+from article import article
 
 if __name__ == '__main__':
+    Model.Base.metadata.create_all(Model.Engine)
     cherrypy.config.update({'server.socket_host': '0.0.0.0'
                        })
     cherrypy.tree.mount(
@@ -41,8 +42,8 @@ if __name__ == '__main__':
     )
     cherrypy.engine.start()
     cherrypy.engine.block()
+
 '''
-    Model.Base.metadata.create_all(Model.Engine)
     for item in find_all():
         article = articles(item[1])
         article.save()

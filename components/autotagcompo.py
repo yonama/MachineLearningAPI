@@ -10,7 +10,7 @@ from component import component
 
 sys.path.append("./models/")
 from model import model
-from articles import articles
+from article import article
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import TruncatedSVD
@@ -32,7 +32,7 @@ class autotagcompo(component):
         return text.split()
 
     def make_tags_with_new_text(self, text):
-        texts = [item.text for item in model.session.query(articles).all()]
+        texts = [item.text for item in model.session.query(article).all()]
         texts.append(text)
         vectorizer = TfidfVectorizer(
             max_df=self.max_df,

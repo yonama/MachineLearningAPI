@@ -3,7 +3,7 @@ import sys
 sys.path.append("./controllers/")
 from controller import controller
 sys.path.append("./models/")
-from articles import articles
+from article import article
 sys.path.append("./components/")
 from autotagcompo import autotagcompo
 from nominalization import nominalization

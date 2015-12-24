@@ -7,7 +7,7 @@ sys.path.append("./models/")
 import model as Model
 from model import model
 
-class articles(Model.Base, model):
+class article(Model.Base, model):
     __tablename__ = 'articles'
 
     id = Column(Integer, primary_key=True)
@@ -23,4 +23,4 @@ class articles(Model.Base, model):
         self.filter = filter(self)
 
     def __repr__(self):
-        return "<articles('%s','text()',%s','%s')>" % (self.id, self.created, self.updated)
+        return "<article('%s','text()',%s','%s')>" % (self.id, self.created, self.updated)
