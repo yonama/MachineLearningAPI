@@ -1,21 +1,21 @@
 # MachineLearningAPI
 
-##note
+## note
 this project is powerd by python3.
 not working python2.x versions.
 
-##install
+## install
 $pip3 install cherrypy  
 $clone https://github.com/hobbee/MachineLearningAPI.git
 
-##run
+## run
 $python3 index.py
 
-##use
-###find keyword
+## use
+### find keyword
 post to `http://<domain>:8080/api/auto_tag` with __article data__.  
 you will get tags list cleated automatic soon.
-####send data format example
+#### send data format example
 ```
 var settings = {  
   "async": true,
@@ -36,16 +36,16 @@ $.ajax(settings).done(function (response) {
 });  
 ```
 
-####receive data format example
+#### receive data format example
 ```
 ["クッション", "ショット", "タップ", "テーブル", "ブリッジ", "ボール", "ポケット", "丸み", "木材", "樹脂", "玉", "穴", "道具"]
 ```
 
-###find asosiation rule
+### find asosiation rule
 post to `http://<domain>:8080/api/asosiation` with __trans_list__.  
 you will get asosiation rule list.
 
-####send data format example
+#### send data format example
 ```
 var settings = {
   "async": true,
@@ -60,7 +60,7 @@ var settings = {
 }
 ```
 
-####receive data format example
+#### receive data format example
 ```
 [
   [
@@ -82,10 +82,10 @@ var settings = {
 ]
 ```
 
-###send transaction list
+### send transaction list
 post to `http://<domain>:8080/api/association` with __trans_list__ and __user_id__.
 
-####send data format example
+#### send data format example
 ```
 var settings = {
   "async": true,
